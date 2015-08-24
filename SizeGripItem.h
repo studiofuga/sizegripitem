@@ -39,6 +39,7 @@ class SizeGripItem : public QGraphicsItem
             TopLeft     = Top | Left,
             BottomLeft  = Bottom | Left,
             Right       = 0x8,
+            Center      = 0x10,
             TopRight    = Top | Right,
             BottomRight = Bottom | Right
         };
@@ -82,6 +83,7 @@ class SizeGripItem : public QGraphicsItem
         void setBottom(qreal y);
         void setBottomLeft(const QPointF& pos);
         void setLeft(qreal x);
+        void setCenter(const QPointF& pos);
 
     private:
         void doResize();

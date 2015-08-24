@@ -79,6 +79,9 @@ QVariant SizeGripItem::HandleItem::itemChange(GraphicsItemChange change,
             case Left:
                 parent_->setLeft(pos.x());
                 break;
+            case Center:
+                parent_->setCenter(pos);
+                break;
         }
     }
 
@@ -87,6 +90,9 @@ QVariant SizeGripItem::HandleItem::itemChange(GraphicsItemChange change,
 
 QPointF SizeGripItem::HandleItem::restrictPosition(const QPointF& newPos)
 {
+    if (positionFlags() == Center)
+        return newPos;
+
     QPointF retVal = pos();
 
     if (positionFlags_ & Top || positionFlags_ & Bottom)
@@ -123,6 +129,7 @@ SizeGripItem::SizeGripItem(Resizer* resizer, QGraphicsItem* parent)
     handleItems_.append(new HandleItem(Bottom, this));
     handleItems_.append(new HandleItem(BottomLeft, this));
     handleItems_.append(new HandleItem(Left, this));
+    handleItems_.append(new HandleItem(Center, this));
     updateHandleItemPositions();
 }
 
@@ -158,6 +165,11 @@ IMPL_SET_FN(const QPointF&, TopLeft)
 IMPL_SET_FN(const QPointF&, TopRight)
 IMPL_SET_FN(const QPointF&, BottomRight)
 IMPL_SET_FN(const QPointF&, BottomLeft)
+
+void SizeGripItem::setCenter(const QPointF &pos) {
+    rect_.moveCenter(pos);
+    doResize();
+}
 
 void SizeGripItem::doResize()
 {
@@ -203,6 +215,9 @@ void SizeGripItem::updateHandleItemPositions()
             case Left:
                 item->setPos(rect_.left(),
                              rect_.top() + rect_.height() / 2 - 1);
+                break;
+            case Center:
+                item->setPos(rect_.center());
                 break;
         }
 
