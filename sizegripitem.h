@@ -27,6 +27,7 @@
 
 #include <QGraphicsItem>
 #include <QGraphicsRectItem>
+#include <QScopedPointer>
 
 class SizeGripItem : public QGraphicsItem
 {
@@ -92,7 +93,7 @@ class SizeGripItem : public QGraphicsItem
 
         QList<HandleItem*> handleItems_;
         QRectF rect_;
-        Resizer* resizer_;
+        QScopedPointer<Resizer> resizer_;
 };
 
 #endif // SIZEGRIPITEM_H
