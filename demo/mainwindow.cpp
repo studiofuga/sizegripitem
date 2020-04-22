@@ -24,9 +24,9 @@
 #include <QGraphicsRectItem>
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include "MainWindow.h"
+#include "mainwindow.h"
 #include "ui_MainWindow.h"
-#include "SizeGripItem.h"
+#include "sizegripitem.h"
 
 namespace
 {
